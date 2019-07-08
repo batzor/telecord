@@ -1,0 +1,19 @@
+{
+    "channels":{
+      "_comment":"Telegram channel to discord channel mapping",
+      "9999999999":"https://discordapp.com/api/webhooks/x/y",
+      "8888888888":"https://discordapp.com/api/webhooks/a/b"
+    },
+    "telegram":{
+      "_comment":"Telegram client parameters",
+      "api_id":543210,
+      "api_hash":"0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a",
+      "phone":"+012345678910",
+      "loglevel": "DEBUG"
+    },
+    "imgur":{
+      "_comment":"Imgur client parameters",
+      "api_id": "a0a0a0a0a0a0a0a",
+      "api_hash": "a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0"
+    }
+}
