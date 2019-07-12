@@ -3,9 +3,11 @@
 ##               with its image and reply
 ##
 
+from datetime import datetime
 from discord_hooks import Webhook
-from telethon import TelegramClient, events, utils
 from imgurpython import ImgurClient
+from pytz import timezone
+from telethon import TelegramClient, events, utils
 import base64
 import json
 import logging
@@ -13,7 +15,7 @@ import os
 import requests
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s', datefmt='%m-%d %H:%M')
-logger = logging.getLogger('telebagger')
+logger = logging.getLogger('telecord')
 
 with open('config.json') as config_file:
     config = json.load(config_file)
@@ -63,14 +65,16 @@ async def handler(update):
                 logger.debug("File deleted")
 
             if not text == '':
-                text += "=======================\n"
+                date = m.date.astimezone(timezone('Asia/Ulaanbaatar'))
+                text += "`" + date.strftime("%Y-%m-%d %H:%M:%S GMT%Z") + "`\n"
+                text += "==================================\n"
                 msg = Webhook(channels[str(m.to_id.channel_id)], msg=text)
                 msg.post()
                 logger.info("Relaying Message from Channel ID: {}".format(update.message.to_id.channel_id))
             else:
                 logger.debug('Ignoring empty message: {}'.format(update.message))
         else:
-            logger.info("Ignoring Message from Channel ID: {}".format(update.message.to_id.channel_id))
+          logger.info("Ignoring Message from Channel: {}: {}".format(update.message.to_id.channel_id, update.message.to_id.channel_name))
     except:
         logger.debug('Exception occurred while handling:\n')
         logger.debug(update)
