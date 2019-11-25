@@ -39,13 +39,13 @@ img_cli = ImgurClient(imgur_id, imgur_hash)
 
 @client.on(events.NewMessage())
 async def handler(update):
-    try:
-        #prints peer ids of channels
-        #result = await client.get_dialogs()
-        #print("\n List of channels:")
-        #for p in result:
-        #    print(str(p.id + 2**32) + ": "+p.name)
+    #prints peer ids of channels
+    result = await client.get_dialogs()
+    print("\n List of channels:")
+    for p in result:
+        print(str(utils.resolve_id(p.id)[0]) + ": "+p.name)
 
+    try:
         if str(update.message.to_id.channel_id) in channels:
             m = update.message
             media = m.media
